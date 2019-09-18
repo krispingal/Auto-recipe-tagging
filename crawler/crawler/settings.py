@@ -64,9 +64,12 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'crawler.pipelines.CrawlerPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'crawler.pipelines.ImagesPipelines': 1,
+    'crawler.pipelines.JsonWriterPipeline': 700,
+}
+
+IMAGES_STORE = '/home/krispin/data/improved-happiness/recipe_pics'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
