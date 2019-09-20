@@ -20,8 +20,8 @@ class Recipe(scrapy.Item):
     image_urls = scrapy.Field()
     images = scrapy.Field()
 
-    def get_text_fields(self):
-        
-
-
-
+    def asdict(self, item):
+        image_fields = set(['image_urls', 'images'])
+        item_dict = {x : item[x] for x in item if x not in image_fields}
+        item_dict = 
+        return item_dict

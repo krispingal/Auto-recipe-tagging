@@ -38,7 +38,6 @@ class RecipesSpider(scrapy.Spider):
         :return:
         """
         r_name = response.url.split("/")[-1]
-        print(r_name)
         r = ItemLoader(item=Recipe(), response= response)
         r.add_value('name', r_name)
         r.add_xpath('servings', '//dd[@class="yield"]/text()')
@@ -46,4 +45,5 @@ class RecipesSpider(scrapy.Spider):
         r.add_xpath('preparation_steps', '//li[@class="preparation-step"]/text()')
         r.add_xpath('rating', '//span[@class="rating"]/text()')
         r.add_xpath('tags', '//meta[@name="keywords"]/@content')
+        r.add_xpath('image_urls', '//source[@media="(min-width: 320px)"]/@srcset')
         return r.load_item()
