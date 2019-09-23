@@ -14,9 +14,9 @@ class RecipesSpider(scrapy.Spider):
     def parse(self, response):
         """ Parse search pages
             Iterate over each recipe in the search page and invoke
-            parse_recipe to etract data
+            parse_recipe to extract data
         """
-        _, _, page_num = response.url.partition('page=')
+        page_num = response.url.split('page=', 1)[1]
         page_num = int(page_num)
 
         recipe_urls = response.xpath('//a[@class="view-complete-item"]/@href').getall()
@@ -45,5 +45,4 @@ class RecipesSpider(scrapy.Spider):
         r.add_xpath('preparation_steps', '//li[@class="preparation-step"]/text()')
         r.add_xpath('rating', '//span[@class="rating"]/text()')
         r.add_xpath('tags', '//meta[@name="keywords"]/@content')
-        r.add_xpath('image_urls', '//source[@media="(min-width: 768px)"]/@srcset')
         return r.load_item()

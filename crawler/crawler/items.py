@@ -17,12 +17,3 @@ class Recipe(scrapy.Item):
     preparation_steps = scrapy.Field(input_processor=MapCompose(clean_prep_step))
     rating = scrapy.Field(input_processor=Compose(TakeFirst(), TakeFirst()))
     tags = scrapy.Field(input_processor=TakeFirst())
-    image_urls = scrapy.Field()
-    images = scrapy.Field()
-
-    def asdict(self, item):
-        image_fields = set(['image_urls', 'images'])
-        item_dict = {x: item[x] for x in item if x not in image_fields}
-        img_nm = item['images'][0]['path'].split('full/', 1)[1]
-        item_dict['recipe_img'] = img_nm
-        return item_dict

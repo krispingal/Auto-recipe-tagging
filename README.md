@@ -3,7 +3,7 @@
 
 [Under Construction]
 
-How does machine generated recipes taste like ?
+ ?
 
 More often than not, we tweak around with recipes so that they fit our tastes and we use the ingredients 
 we have at hand. This is an experiment to see whether an NLP system can create tasteful recipes.
