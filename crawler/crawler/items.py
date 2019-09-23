@@ -22,6 +22,7 @@ class Recipe(scrapy.Item):
 
     def asdict(self, item):
         image_fields = set(['image_urls', 'images'])
-        item_dict = {x : item[x] for x in item if x not in image_fields}
-        item_dict = 
+        item_dict = {x: item[x] for x in item if x not in image_fields}
+        img_nm = item['images'][0]['path'].split('full/', 1)[1]
+        item_dict['recipe_img'] = img_nm
         return item_dict

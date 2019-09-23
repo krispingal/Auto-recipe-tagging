@@ -65,7 +65,8 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'scrapy.pipelines.images.ImagesPipeline': 1
+    'scrapy.pipelines.images.ImagesPipeline': 1,
+    'crawler.pipelines.JsonWriterPipeline': 200
 }
 
 IMAGES_STORE = '/home/krispin/data/improved-happiness/recipe_pics'
@@ -93,3 +94,4 @@ IMAGES_STORE = '/home/krispin/data/improved-happiness/recipe_pics'
 
 USER_AGENT = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36'
 LOG_LEVEL = 'INFO'
+LOG_FILE = 'recipes.log'

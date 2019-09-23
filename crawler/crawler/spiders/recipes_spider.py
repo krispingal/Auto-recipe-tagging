@@ -3,7 +3,7 @@ from scrapy.loader import ItemLoader
 from crawler.items import Recipe
 
 #switch for development
-DEV = True
+DEV = False
 
 class RecipesSpider(scrapy.Spider):
     name = "recipes"
@@ -38,12 +38,12 @@ class RecipesSpider(scrapy.Spider):
         :return:
         """
         r_name = response.url.split("/")[-1]
-        r = ItemLoader(item=Recipe(), response= response)
+        r = ItemLoader(item=Recipe(), response=response)
         r.add_value('name', r_name)
         r.add_xpath('servings', '//dd[@class="yield"]/text()')
         r.add_xpath('ingredients', '//li[@class="ingredient"]/text()')
         r.add_xpath('preparation_steps', '//li[@class="preparation-step"]/text()')
         r.add_xpath('rating', '//span[@class="rating"]/text()')
         r.add_xpath('tags', '//meta[@name="keywords"]/@content')
-        r.add_xpath('image_urls', '//source[@media="(min-width: 320px)"]/@srcset')
+        r.add_xpath('image_urls', '//source[@media="(min-width: 768px)"]/@srcset')
         return r.load_item()
