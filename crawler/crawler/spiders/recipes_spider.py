@@ -10,10 +10,7 @@ class RecipesSpider(scrapy.Spider):
     start_urls = [
             "https://www.epicurious.com/search/?content=recipe&page=1"
         ]
-
-    def __init__(self):
-        super().__init__()
-        self.state = {}
+        
 
     def parse(self, response):
         """ Parse search pages
@@ -22,10 +19,9 @@ class RecipesSpider(scrapy.Spider):
         """
         page_num = response.url.split('page=', 1)[1]
         page_num = int(page_num)
-        self.state['items_count'] = self.state.get('items_count', 0) + 1
 
         recipe_urls = response.xpath('//a[@class="view-complete-item"]/@href').getall()
-        for recipe in recipe_urls[:5]:
+        for recipe in recipe_urls:
             yield response.follow(recipe, self.parse_recipe)
         if page_num % 20 == 0:
             self.logger.info(f'Processed {page_num}')
