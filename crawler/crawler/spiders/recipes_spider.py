@@ -11,6 +11,10 @@ class RecipesSpider(scrapy.Spider):
             "https://www.epicurious.com/search/?content=recipe&page=1"
         ]
 
+    def __init__(self):
+        super().__init__()
+        self.state = {}
+
     def parse(self, response):
         """ Parse search pages
             Iterate over each recipe in the search page and invoke
@@ -18,6 +22,7 @@ class RecipesSpider(scrapy.Spider):
         """
         page_num = response.url.split('page=', 1)[1]
         page_num = int(page_num)
+        self.state['items_count'] = self.state.get('items_count', 0) + 1
 
         recipe_urls = response.xpath('//a[@class="view-complete-item"]/@href').getall()
         for recipe in recipe_urls[:5]:
@@ -44,5 +49,5 @@ class RecipesSpider(scrapy.Spider):
         r.add_xpath('ingredients', '//li[@class="ingredient"]/text()')
         r.add_xpath('preparation_steps', '//li[@class="preparation-step"]/text()')
         r.add_xpath('rating', '//span[@class="rating"]/text()')
-        r.add_xpath('tags', '//meta[@name="keywords"]/@content')
+        r.add_xpath('tags', '//meta[@name="keywords"]/@content', default=[])
         return r.load_item()
