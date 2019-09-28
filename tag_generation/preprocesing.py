@@ -7,7 +7,7 @@ import csv
 # For test
 FILE_LOC = '/home/krispin/data/improved-happiness/'
 # For dev
-# FILE_LOC = '/home/krispin/data/improved-happiness/proto/'
+#FILE_LOC = '/home/krispin/data/improved-happiness/proto/'
 
 skipped, wrote = 0, 0
 
@@ -28,7 +28,7 @@ def get_recipe_tags(file_name: str,
                 target.update({tag: 0 for tag in common_tags})
             else:
                 for tag in common_tags:
-                    target[tag] = 1 if tag in recipe['tags'] else 0
+                    target[tag] = 1 if tag in recipe['tags'][0] else 0
             yield target
 
 
@@ -54,4 +54,4 @@ def main(k: int = 6):
 
 
 if __name__ == '__main__':
-    main()
+    main(k=10)
